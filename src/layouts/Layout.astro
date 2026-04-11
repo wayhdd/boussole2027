@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title: string;
@@ -69,5 +70,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://boussole
   </head>
   <body class="min-h-screen bg-surface text-slate-900 flex flex-col">
     <slot />
+    <CookieBanner />
   </body>
 </html>

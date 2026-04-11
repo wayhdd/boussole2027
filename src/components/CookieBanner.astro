@@ -1,0 +1,68 @@
+<!-- Cookie consent banner for GDPR compliance -->
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[100] p-4 hidden">
+  <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 md:p-6">
+    <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+      <div class="flex-1">
+        <p class="font-semibold text-sm mb-1">Ce site utilise des cookies</p>
+        <p class="text-xs text-muted leading-relaxed">
+          Nous utilisons des cookies publicitaires (Google AdSense) pour financer ce site gratuit.
+          Aucune donnée de quiz n'est collectée.
+          <a href="/confidentialite" class="text-primary underline underline-offset-2">En savoir plus</a>
+        </p>
+      </div>
+      <div class="flex gap-2 shrink-0">
+        <button
+          id="cookie-reject"
+          class="px-4 py-2 text-sm font-medium text-muted border border-slate-200 rounded-full hover:bg-slate-50 transition-colors"
+        >
+          Refuser
+        </button>
+        <button
+          id="cookie-accept"
+          class="px-4 py-2 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-dark transition-colors"
+        >
+          Accepter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const COOKIE_KEY = 'boussole2027_consent';
+
+  function getConsent(): string | null {
+    return localStorage.getItem(COOKIE_KEY);
+  }
+
+  function setConsent(value: 'accepted' | 'rejected') {
+    localStorage.setItem(COOKIE_KEY, value);
+  }
+
+  function initBanner() {
+    const banner = document.getElementById('cookie-banner')!;
+    const consent = getConsent();
+
+    if (!consent) {
+      banner.classList.remove('hidden');
+    }
+
+    document.getElementById('cookie-accept')!.addEventListener('click', () => {
+      setConsent('accepted');
+      banner.classList.add('hidden');
+      // Enable ad personalization
+      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+    });
+
+    document.getElementById('cookie-reject')!.addEventListener('click', () => {
+      setConsent('rejected');
+      banner.classList.add('hidden');
+      // Signal non-consent to Google
+      const w = window as any;
+      w.adsbygoogle = w.adsbygoogle || [];
+      w.adsbygoogle.requestNonPersonalizedAds = 1;
+    });
+  }
+
+  initBanner();
+</script>
