@@ -56,10 +56,30 @@ import AdBanner from '../components/AdBanner.astro';
         </div>
       </div>
 
-      <!-- Axis bars detail -->
+      <!-- Axis bars + analysis -->
       <div class="space-y-4 mb-8" id="axis-bars"></div>
 
       <AdBanner slot="leaderboard" />
+
+      <!-- Downloadable share card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 md:p-10 mt-8 mb-8">
+        <h2 class="text-xl font-bold mb-2 text-center">Votre carte politique</h2>
+        <p class="text-muted text-sm text-center mb-6">Téléchargez votre carte et partagez-la en story Instagram, sur Facebook ou Twitter !</p>
+        <div class="flex justify-center mb-4">
+          <canvas id="share-card-canvas" class="rounded-xl shadow-md max-w-full" style="max-height: 350px;"></canvas>
+        </div>
+        <div class="flex justify-center">
+          <button
+            id="btn-download"
+            class="flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full hover:bg-accent-light transition-colors shadow-md"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            Télécharger ma carte
+          </button>
+        </div>
+      </div>
 
       <!-- Share section -->
       <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 md:p-10 mt-8">
@@ -123,6 +143,7 @@ import AdBanner from '../components/AdBanner.astro';
   import { axes } from '../data/questions';
   import { decodeResults, matchPoliticians } from '../lib/scoring';
   import type { AxisResult, PoliticianMatch } from '../lib/scoring';
+  import { analyzeAxis, generateShareCard } from '../lib/analysis';
 
   const params = new URLSearchParams(window.location.search);
   const encoded = params.get('r');
@@ -147,6 +168,7 @@ import AdBanner from '../components/AdBanner.astro';
     renderCandidatesList(matches);
     renderRadarChart(results);
     renderAxisBars(results);
+    renderShareCard(results, matches[0]);
     setupSharing(matches[0]);
   }
 
@@ -265,25 +287,63 @@ import AdBanner from '../components/AdBanner.astro';
 
   function renderAxisBars(results: AxisResult[]) {
     const container = document.getElementById('axis-bars')!;
-    container.innerHTML = results.map(r => `
-      <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5">
-        <div class="flex justify-between items-center mb-3">
-          <div class="flex items-center gap-2">
-            <span class="text-xl">${r.emoji}</span>
-            <span class="font-bold">${r.label}</span>
+    container.innerHTML = results.map(r => {
+      const analysis = analyzeAxis(r);
+      return `
+        <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5">
+          <div class="flex justify-between items-center mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">${r.emoji}</span>
+              <span class="font-bold">${r.label}</span>
+            </div>
+            <span class="text-sm font-semibold" style="color: ${r.color}">${r.score}%</span>
           </div>
-          <span class="text-sm font-semibold" style="color: ${r.color}">${r.score}%</span>
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="text-xs text-muted w-28 text-right shrink-0">${r.poleLeft}</span>
-          <div class="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden relative">
-            <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-300"></div>
-            <div class="h-full rounded-full transition-all duration-1000 ease-out" style="width: ${r.score}%; background-color: ${r.color}"></div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-xs text-muted w-28 text-right shrink-0">${r.poleLeft}</span>
+            <div class="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden relative">
+              <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-300"></div>
+              <div class="h-full rounded-full transition-all duration-1000 ease-out" style="width: ${r.score}%; background-color: ${r.color}"></div>
+            </div>
+            <span class="text-xs text-muted w-28 shrink-0">${r.poleRight}</span>
           </div>
-          <span class="text-xs text-muted w-28 shrink-0">${r.poleRight}</span>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <p class="font-semibold text-sm mb-1" style="color: ${r.color}">${analysis.title}</p>
+            <p class="text-xs text-muted leading-relaxed">${analysis.description}</p>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+  }
+
+  function renderShareCard(results: AxisResult[], topMatch: PoliticianMatch) {
+    const dataUrl = generateShareCard(
+      results,
+      topMatch.politician.name,
+      topMatch.politician.party,
+      topMatch.compatibility,
+      topMatch.politician.color
+    );
+
+    // Display preview
+    const canvas = document.getElementById('share-card-canvas') as HTMLCanvasElement;
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0);
+    };
+    img.src = dataUrl;
+
+    // Download button
+    document.getElementById('btn-download')!.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'boussole2027-resultats.png';
+      link.href = dataUrl;
+      link.click();
+    });
   }
 
   function setupSharing(topMatch: PoliticianMatch) {
