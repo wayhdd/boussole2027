@@ -1,0 +1,322 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AdBanner from '../components/AdBanner.astro';
+---
+
+<Layout
+  title="Vos Résultats — Boussole2027"
+  description="Découvrez votre profil politique et les candidats 2027 qui vous ressemblent le plus."
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl mx-auto px-4 py-8 md:py-12 w-full">
+    <!-- Loading state -->
+    <div id="loading" class="text-center py-20">
+      <div class="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
+      <p class="text-muted">Analyse de vos réponses...</p>
+    </div>
+
+    <!-- Results container (hidden initially) -->
+    <div id="results-container" class="hidden">
+
+      <!-- Candidate match hero -->
+      <div id="match-hero" class="bg-gradient-to-br from-primary via-primary-light to-indigo-400 rounded-3xl p-8 md:p-12 text-white text-center mb-8 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-5 left-5 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+          <div class="absolute bottom-5 right-5 w-56 h-56 bg-amber-300 rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative">
+          <p class="text-indigo-200 text-sm font-medium mb-2 uppercase tracking-wider">Votre candidat le plus proche</p>
+          <h1 id="top-match-name" class="text-3xl md:text-5xl font-extrabold mb-2">...</h1>
+          <p id="top-match-party" class="text-indigo-200 text-lg mb-4">...</p>
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3">
+            <span class="text-2xl font-extrabold" id="top-match-pct">0%</span>
+            <span class="text-indigo-100">de compatibilité</span>
+          </div>
+        </div>
+      </div>
+
+      <AdBanner slot="leaderboard" />
+
+      <!-- All candidate matches -->
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 md:p-8 mb-8">
+        <h2 class="text-xl font-bold mb-6">Compatibilité avec les candidats</h2>
+        <div class="space-y-3" id="candidates-list"></div>
+      </div>
+
+      <AdBanner slot="inline" />
+
+      <!-- Radar chart canvas -->
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 md:p-10 mb-8">
+        <h2 class="text-xl font-bold mb-6 text-center">Votre profil sur 6 axes</h2>
+        <div class="max-w-md mx-auto aspect-square">
+          <canvas id="radar-canvas" width="400" height="400"></canvas>
+        </div>
+      </div>
+
+      <!-- Axis bars detail -->
+      <div class="space-y-4 mb-8" id="axis-bars"></div>
+
+      <AdBanner slot="leaderboard" />
+
+      <!-- Share section -->
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 md:p-10 mt-8">
+        <h2 class="text-xl font-bold mb-2 text-center">Partagez vos résultats</h2>
+        <p class="text-muted text-sm text-center mb-6">Comparez-vous avec vos proches et lancez le débat !</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <button
+            id="btn-copy"
+            class="flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+            </svg>
+            Copier le lien
+          </button>
+          <button
+            id="btn-twitter"
+            class="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-700 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            Partager sur X
+          </button>
+          <button
+            id="btn-facebook"
+            class="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Facebook
+          </button>
+        </div>
+        <p id="copy-feedback" class="text-center text-sm text-emerald-600 font-medium mt-3 hidden">
+          Lien copié !
+        </p>
+      </div>
+
+      <AdBanner slot="inline" class="mt-8" />
+
+      <!-- Retake -->
+      <div class="text-center mt-10">
+        <a
+          href="/quiz"
+          class="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-dark transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          Refaire le test
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  import { axes } from '../data/questions';
+  import { decodeResults, matchPoliticians } from '../lib/scoring';
+  import type { AxisResult, PoliticianMatch } from '../lib/scoring';
+
+  const params = new URLSearchParams(window.location.search);
+  const encoded = params.get('r');
+
+  if (!encoded) {
+    window.location.href = '/quiz';
+  } else {
+    const results = decodeResults(encoded);
+    if (!results) {
+      window.location.href = '/quiz';
+    } else {
+      renderResults(results);
+    }
+  }
+
+  function renderResults(results: AxisResult[]) {
+    document.getElementById('loading')!.classList.add('hidden');
+    document.getElementById('results-container')!.classList.remove('hidden');
+
+    const matches = matchPoliticians(results);
+    renderMatchHero(matches[0]);
+    renderCandidatesList(matches);
+    renderRadarChart(results);
+    renderAxisBars(results);
+    setupSharing(matches[0]);
+  }
+
+  function renderMatchHero(top: PoliticianMatch) {
+    document.getElementById('top-match-name')!.textContent = top.politician.name;
+    document.getElementById('top-match-party')!.textContent = top.politician.party;
+    document.getElementById('top-match-pct')!.textContent = `${top.compatibility}%`;
+  }
+
+  function renderCandidatesList(matches: PoliticianMatch[]) {
+    const container = document.getElementById('candidates-list')!;
+    container.innerHTML = matches.map((m, i) => {
+      const isTop = i === 0;
+      return `
+        <div class="flex items-center gap-4 p-4 rounded-xl ${isTop ? 'bg-primary/5 border-2 border-primary/20' : 'bg-slate-50'} transition-all">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${isTop ? 'bg-primary text-white' : 'bg-slate-200 text-slate-600'}">
+            ${i + 1}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="font-bold text-sm md:text-base truncate">${m.politician.name}</span>
+              <span class="text-xs px-2 py-0.5 rounded-full font-medium shrink-0" style="background-color: ${m.politician.color}15; color: ${m.politician.color}">${m.politician.partyShort}</span>
+            </div>
+            <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-1000 ease-out" style="width: ${m.compatibility}%; background-color: ${m.politician.color}"></div>
+            </div>
+          </div>
+          <span class="font-bold text-sm shrink-0" style="color: ${m.politician.color}">${m.compatibility}%</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderRadarChart(results: AxisResult[]) {
+    const canvas = document.getElementById('radar-canvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d')!;
+    const size = 400;
+    const cx = size / 2;
+    const cy = size / 2;
+    const maxR = 150;
+    const n = results.length;
+
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    ctx.scale(dpr, dpr);
+
+    for (let i = 1; i <= 4; i++) {
+      const r = (maxR / 4) * i;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    for (let i = 0; i < n; i++) {
+      const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+      const x = cx + Math.cos(angle) * maxR;
+      const y = cy + Math.sin(angle) * maxR;
+
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      const labelR = maxR + 25;
+      const lx = cx + Math.cos(angle) * labelR;
+      const ly = cy + Math.sin(angle) * labelR;
+      ctx.fillStyle = '#475569';
+      ctx.font = '13px Inter, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(results[i].label, lx, ly);
+    }
+
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+      const r = (results[i].score / 100) * maxR;
+      const x = cx + Math.cos(angle) * r;
+      const y = cy + Math.sin(angle) * r;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+
+    const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+    gradient.addColorStop(0, 'rgba(79, 70, 229, 0.15)');
+    gradient.addColorStop(1, 'rgba(79, 70, 229, 0.05)');
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.strokeStyle = '#4f46e5';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    for (let i = 0; i < n; i++) {
+      const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+      const r = (results[i].score / 100) * maxR;
+      const x = cx + Math.cos(angle) * r;
+      const y = cy + Math.sin(angle) * r;
+
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = results[i].color;
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+  }
+
+  function renderAxisBars(results: AxisResult[]) {
+    const container = document.getElementById('axis-bars')!;
+    container.innerHTML = results.map(r => `
+      <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5">
+        <div class="flex justify-between items-center mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">${r.emoji}</span>
+            <span class="font-bold">${r.label}</span>
+          </div>
+          <span class="text-sm font-semibold" style="color: ${r.color}">${r.score}%</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-muted w-28 text-right shrink-0">${r.poleLeft}</span>
+          <div class="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden relative">
+            <div class="absolute left-1/2 top-0 bottom-0 w-px bg-slate-300"></div>
+            <div class="h-full rounded-full transition-all duration-1000 ease-out" style="width: ${r.score}%; background-color: ${r.color}"></div>
+          </div>
+          <span class="text-xs text-muted w-28 shrink-0">${r.poleRight}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function setupSharing(topMatch: PoliticianMatch) {
+    const url = window.location.href;
+
+    document.getElementById('btn-copy')!.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        const fb = document.getElementById('copy-feedback')!;
+        fb.classList.remove('hidden');
+        setTimeout(() => fb.classList.add('hidden'), 2000);
+      } catch {
+        prompt('Copiez ce lien :', url);
+      }
+    });
+
+    document.getElementById('btn-twitter')!.addEventListener('click', () => {
+      const text = encodeURIComponent(`Je suis ${topMatch.compatibility}% compatible avec ${topMatch.politician.name} selon Boussole2027 ! Et toi, tu es plutôt quel candidat ? 🗳️`);
+      const shareUrl = encodeURIComponent(url);
+      window.open(
+        `https://twitter.com/intent/tweet?text=${text}&url=${shareUrl}`,
+        '_blank',
+        'width=600,height=400'
+      );
+    });
+
+    document.getElementById('btn-facebook')!.addEventListener('click', () => {
+      const shareUrl = encodeURIComponent(url);
+      window.open(
+        `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
+        '_blank',
+        'width=600,height=400'
+      );
+    });
+  }
+</script>

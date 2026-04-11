@@ -1,0 +1,199 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AdBanner from '../components/AdBanner.astro';
+---
+
+<Layout
+  title="Quiz Politique 2027 — 45 questions pour trouver votre candidat"
+  description="Répondez à 45 questions et découvrez quel candidat à la présidentielle 2027 vous ressemble le plus. Quiz gratuit et anonyme."
+>
+  <Header />
+
+  <main class="flex-1 max-w-3xl mx-auto px-4 py-8 md:py-12 w-full">
+    <!-- Progress bar -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-sm font-medium text-muted" id="progress-label">Question 1 / 30</span>
+        <span class="text-sm font-semibold text-primary" id="progress-pct">0%</span>
+      </div>
+      <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+        <div
+          id="progress-bar"
+          class="h-full bg-gradient-to-r from-primary to-primary-light rounded-full transition-all duration-500 ease-out"
+          style="width: 0%"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Question card -->
+    <div id="quiz-card" class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 md:p-10 mb-6">
+      <!-- Axis badge -->
+      <div id="axis-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-6 bg-slate-100 text-slate-600">
+        <span id="axis-emoji"></span>
+        <span id="axis-label"></span>
+      </div>
+
+      <!-- Question text -->
+      <h2 id="question-text" class="text-xl md:text-2xl font-bold leading-relaxed mb-10">
+        Chargement...
+      </h2>
+
+      <!-- Likert scale -->
+      <div class="space-y-3" id="answers-container">
+        <button data-value="1" class="answer-btn w-full text-left px-5 py-3.5 rounded-xl border-2 border-slate-200 hover:border-red-300 hover:bg-red-50 transition-all duration-200 font-medium text-sm md:text-base">
+          Pas du tout d'accord
+        </button>
+        <button data-value="2" class="answer-btn w-full text-left px-5 py-3.5 rounded-xl border-2 border-slate-200 hover:border-orange-300 hover:bg-orange-50 transition-all duration-200 font-medium text-sm md:text-base">
+          Plutôt pas d'accord
+        </button>
+        <button data-value="3" class="answer-btn w-full text-left px-5 py-3.5 rounded-xl border-2 border-slate-200 hover:border-slate-400 hover:bg-slate-50 transition-all duration-200 font-medium text-sm md:text-base">
+          Neutre
+        </button>
+        <button data-value="4" class="answer-btn w-full text-left px-5 py-3.5 rounded-xl border-2 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 transition-all duration-200 font-medium text-sm md:text-base">
+          Plutôt d'accord
+        </button>
+        <button data-value="5" class="answer-btn w-full text-left px-5 py-3.5 rounded-xl border-2 border-slate-200 hover:border-green-400 hover:bg-green-50 transition-all duration-200 font-medium text-sm md:text-base">
+          Tout à fait d'accord
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex justify-between items-center">
+      <button
+        id="btn-prev"
+        class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted hover:text-slate-900 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        disabled
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Précédent
+      </button>
+      <button
+        id="btn-skip"
+        class="text-sm text-muted hover:text-slate-600 transition-colors underline underline-offset-2"
+      >
+        Passer
+      </button>
+    </div>
+
+    <AdBanner slot="inline" class="mt-8" />
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  import { questions, axes } from '../data/questions';
+  import { computeResults, encodeResults } from '../lib/scoring';
+  import type { AnswerValue, Answers } from '../lib/scoring';
+
+  const answers: Answers = {};
+  let currentIndex = 0;
+
+  const progressLabel = document.getElementById('progress-label')!;
+  const progressPct = document.getElementById('progress-pct')!;
+  const progressBar = document.getElementById('progress-bar')!;
+  const questionText = document.getElementById('question-text')!;
+  const axisBadge = document.getElementById('axis-badge')!;
+  const axisEmoji = document.getElementById('axis-emoji')!;
+  const axisLabel = document.getElementById('axis-label')!;
+  const quizCard = document.getElementById('quiz-card')!;
+  const btnPrev = document.getElementById('btn-prev') as HTMLButtonElement;
+  const btnSkip = document.getElementById('btn-skip')!;
+  const answerBtns = document.querySelectorAll<HTMLButtonElement>('.answer-btn');
+
+  function renderQuestion() {
+    const q = questions[currentIndex];
+    const axis = axes.find(a => a.id === q.axis)!;
+    const total = questions.length;
+    const pct = Math.round((currentIndex / total) * 100);
+
+    progressLabel.textContent = `Question ${currentIndex + 1} / ${total}`;
+    progressPct.textContent = `${pct}%`;
+    progressBar.style.width = `${pct}%`;
+
+    questionText.textContent = q.text;
+    axisEmoji.textContent = axis.emoji;
+    axisLabel.textContent = axis.label;
+    axisBadge.style.backgroundColor = `${axis.color}15`;
+    axisBadge.style.color = axis.color;
+
+    btnPrev.disabled = currentIndex === 0;
+
+    // Highlight previously selected answer
+    const prev = answers[q.id];
+    answerBtns.forEach(btn => {
+      const val = Number(btn.dataset.value);
+      if (prev && val === prev) {
+        btn.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+        btn.classList.remove('border-slate-200');
+      } else {
+        btn.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+        btn.classList.add('border-slate-200');
+      }
+    });
+
+    // Animate card
+    quizCard.style.opacity = '0';
+    quizCard.style.transform = 'translateY(8px)';
+    requestAnimationFrame(() => {
+      quizCard.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      quizCard.style.opacity = '1';
+      quizCard.style.transform = 'translateY(0)';
+    });
+  }
+
+  function goNext() {
+    if (currentIndex < questions.length - 1) {
+      currentIndex++;
+      renderQuestion();
+    } else {
+      finishQuiz();
+    }
+  }
+
+  function finishQuiz() {
+    const results = computeResults(answers);
+    const encoded = encodeResults(results);
+    window.location.href = `/resultats?r=${encoded}`;
+  }
+
+  // Answer buttons
+  answerBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = Number(btn.dataset.value) as AnswerValue;
+      answers[questions[currentIndex].id] = val;
+      goNext();
+    });
+  });
+
+  // Prev button
+  btnPrev.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderQuestion();
+    }
+  });
+
+  // Skip button
+  btnSkip.addEventListener('click', goNext);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key >= '1' && e.key <= '5') {
+      const val = Number(e.key) as AnswerValue;
+      answers[questions[currentIndex].id] = val;
+      goNext();
+    }
+    if (e.key === 'ArrowLeft' && currentIndex > 0) {
+      currentIndex--;
+      renderQuestion();
+    }
+  });
+
+  renderQuestion();
+</script>

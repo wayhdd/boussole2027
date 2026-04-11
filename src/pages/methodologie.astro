@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { axes } from '../data/questions';
+import { politicians } from '../data/politicians';
+---
+
+<Layout
+  title="Méthodologie — Boussole2027"
+  description="Comment fonctionne le quiz Boussole2027 ? Découvrez notre méthodologie de scoring et de matching avec les candidats."
+>
+  <Header />
+
+  <main class="flex-1 max-w-3xl mx-auto px-4 py-12 md:py-20">
+    <h1 class="text-3xl md:text-4xl font-extrabold mb-8">Méthodologie</h1>
+
+    <div class="prose prose-slate max-w-none space-y-8">
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Objectif du quiz</h2>
+        <p class="text-muted leading-relaxed">
+          Boussole2027 est un outil ludique et pédagogique qui permet d'explorer ses convictions politiques
+          à travers 45 questions couvrant 6 grands axes de la vie politique française. Il ne prétend pas
+          remplacer une analyse approfondie ni constituer un conseil de vote.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Les 6 axes d'analyse</h2>
+        <p class="text-muted leading-relaxed mb-4">
+          Nous avons choisi 6 axes qui permettent de dresser un portrait nuancé des opinions politiques,
+          au-delà du traditionnel clivage gauche-droite :
+        </p>
+        <div class="space-y-3">
+          {axes.map((axis) => (
+            <div class="bg-white rounded-xl border border-slate-100 p-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xl">{axis.emoji}</span>
+                <span class="font-bold" style={`color: ${axis.color}`}>{axis.label}</span>
+              </div>
+              <p class="text-sm text-muted">
+                Mesure votre position entre <strong>{axis.poleLeft}</strong> et <strong>{axis.poleRight}</strong>.
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Système de scoring</h2>
+        <p class="text-muted leading-relaxed mb-4">
+          Chaque question est associée à un axe et à une direction. Lorsque vous répondez sur l'échelle
+          de Likert (de "Pas du tout d'accord" à "Tout à fait d'accord"), votre réponse est convertie
+          en un score normalisé :
+        </p>
+        <ul class="list-disc pl-6 text-muted space-y-2">
+          <li>Votre réponse (1 à 5) est convertie en une valeur de -2 à +2</li>
+          <li>Cette valeur est multipliée par la direction de la question (+1 ou -1)</li>
+          <li>Les scores sont moyennés par axe, puis normalisés sur une échelle de 0 à 100</li>
+          <li>0 correspond au pôle gauche de l'axe, 100 au pôle droit</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Matching avec les candidats</h2>
+        <p class="text-muted leading-relaxed mb-4">
+          Pour chaque personnalité politique, nous avons établi un profil de référence sur les 6 axes,
+          basé sur leurs déclarations publiques, programmes officiels et votes. La compatibilité est
+          calculée en utilisant la <strong>distance euclidienne inverse</strong> :
+        </p>
+        <ul class="list-disc pl-6 text-muted space-y-2">
+          <li>On calcule la distance géométrique entre votre profil et celui de chaque candidat dans l'espace à 6 dimensions</li>
+          <li>Cette distance est normalisée par rapport à la distance maximale possible</li>
+          <li>Le résultat est inversé et converti en pourcentage de compatibilité (0% = opposé, 100% = identique)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Personnalités politiques analysées</h2>
+        <p class="text-muted leading-relaxed mb-4">
+          Les profils des personnalités suivantes ont été établis de manière éditoriale. Ils sont
+          nécessairement simplifiés et peuvent ne pas refléter l'ensemble des nuances de leurs positions :
+        </p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {politicians.map((p) => (
+            <div class="flex items-center gap-3 bg-white rounded-lg border border-slate-100 p-3">
+              <div class="w-3 h-3 rounded-full shrink-0" style={`background-color: ${p.color}`}></div>
+              <div>
+                <span class="font-semibold text-sm">{p.name}</span>
+                <span class="text-xs text-muted ml-1">({p.partyShort})</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Limites</h2>
+        <ul class="list-disc pl-6 text-muted space-y-2">
+          <li>Les profils des candidats sont des estimations éditoriales, pas des positionnements officiels</li>
+          <li>45 questions ne peuvent pas couvrir l'ensemble des sujets politiques</li>
+          <li>La politique ne se réduit pas à 6 axes : des dimensions comme la géopolitique, la culture ou la ruralité ne sont pas couvertes</li>
+          <li>Les positions des candidats peuvent évoluer dans le temps</li>
+          <li>Ce quiz est un outil d'exploration, pas un outil de décision de vote</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Transparence</h2>
+        <p class="text-muted leading-relaxed">
+          L'ensemble du code source de Boussole2027 est ouvert. Les questions, les profils des candidats
+          et l'algorithme de scoring sont consultables publiquement. Nous encourageons les contributions
+          et les critiques constructives pour améliorer la qualité du quiz.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
