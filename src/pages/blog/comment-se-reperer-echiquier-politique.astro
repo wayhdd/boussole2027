@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import AdBanner from '../../components/AdBanner.astro';
+---
+
+<Layout
+  title="Comment se repérer sur l'échiquier politique en 2027 ? — Boussole2027"
+  description="Le clivage gauche-droite est-il dépassé ? Découvrez les outils et méthodes pour comprendre vos propres convictions politiques et vous situer dans le débat."
+>
+  <Header />
+
+  <main class="flex-1 max-w-3xl mx-auto px-4 py-12 md:py-20 w-full">
+    <a href="/blog" class="text-sm text-primary hover:text-primary-dark transition-colors mb-6 inline-block">&larr; Retour au blog</a>
+
+    <article>
+      <div class="mb-8">
+        <div class="flex items-center gap-3 text-xs text-muted mb-3">
+          <span>20 avril 2026</span>
+          <span>-</span>
+          <span>7 min de lecture</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4">Comment se repérer sur l'échiquier politique en 2027 ?</h1>
+        <p class="text-lg text-muted leading-relaxed">62% des Français déclarent ne plus se reconnaître dans le clivage gauche-droite. Alors comment s'y retrouver ? Les quiz politiques, les boussoles électorales et les compas politiques sont devenus des outils incontournables.</p>
+      </div>
+
+      <AdBanner slot="leaderboard" />
+
+      <div class="prose prose-slate max-w-none space-y-8 mt-8">
+        <section>
+          <h2 class="text-2xl font-bold mb-4">La crise du clivage gauche-droite</h2>
+          <p class="text-muted leading-relaxed">Pendant deux siècles, la politique française s'est organisée autour d'un axe simple : la gauche d'un côté, la droite de l'autre. Cette grille de lecture, née de la position des députés dans l'hémicycle pendant la Révolution française, a longtemps suffi pour comprendre les grandes orientations politiques.</p>
+          <p class="text-muted leading-relaxed">Mais depuis les années 2000, et surtout depuis l'élection d'Emmanuel Macron en 2017, ce clivage montre ses limites. Comment classer un mouvement qui se revendique "et de gauche, et de droite" ? Comment positionner un électeur écologiste favorable au nucléaire, ou un ouvrier défendant la fermeture des frontières ?</p>
+          <p class="text-muted leading-relaxed">La montée du Rassemblement National, l'émergence de l'écologie politique comme force majeure, les débats sur la laïcité, l'Europe ou l'identité ont créé de nouvelles lignes de fracture qui ne se superposent pas au vieux clivage gauche-droite.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">L'essor des quiz et boussoles politiques</h2>
+          <p class="text-muted leading-relaxed">Face à cette complexité, de nouveaux outils ont émergé pour aider les citoyens à se repérer. Les quiz politiques en ligne connaissent un succès croissant, surtout à l'approche des élections.</p>
+          <p class="text-muted leading-relaxed">Le <strong>Political Compass</strong>, créé au début des années 2000, a popularisé l'idée d'un espace politique à deux dimensions : économique (gauche-droite) et social (libertaire-autoritaire). En France, <strong>PolitiScales</strong> a rencontré un immense succès en proposant un test avec 8 axes et des résultats très détaillés.</p>
+          <p class="text-muted leading-relaxed">Ces outils ont un point commun : ils vous positionnent dans un espace multi-dimensionnel plutôt que sur une simple ligne gauche-droite. C'est bien plus fidèle à la réalité de vos opinions.</p>
+        </section>
+
+        <AdBanner slot="inline" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Qu'apporte Boussole2027 de différent ?</h2>
+          <p class="text-muted leading-relaxed">La plupart des quiz politiques vous donnent un profil théorique : "vous êtes libéral-progressiste" ou "interventionniste-conservateur". C'est intéressant mais abstrait. Que faire de cette information ?</p>
+          <p class="text-muted leading-relaxed">Boussole2027 va plus loin en <strong>comparant directement votre profil à celui de personnalités politiques réelles</strong>. Au lieu de vous dire que vous êtes "modérément libéral", nous vous disons que vous êtes "78% compatible avec Édouard Philippe". C'est concret, parlant et immédiatement compréhensible.</p>
+          <p class="text-muted leading-relaxed">Cette approche a plusieurs avantages :</p>
+          <ul class="list-disc pl-6 text-muted space-y-2">
+            <li><strong>C'est concret</strong> : vous vous comparez à des personnes réelles, pas à des catégories abstraites</li>
+            <li><strong>C'est ancré dans l'actualité</strong> : les personnalités sont celles de la présidentielle 2027</li>
+            <li><strong>C'est partageable</strong> : "Je suis 82% Glucksmann" est une phrase qui lance immédiatement un débat</li>
+            <li><strong>C'est nuancé</strong> : vous voyez votre compatibilité avec chaque candidat, pas juste le premier</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Les limites des quiz politiques</h2>
+          <p class="text-muted leading-relaxed">Il est important de garder un regard critique sur ces outils, y compris le nôtre. Un quiz politique, aussi bien conçu soit-il, comporte des limites structurelles :</p>
+          <ul class="list-disc pl-6 text-muted space-y-2">
+            <li><strong>La simplification</strong> : 45 questions ne peuvent pas couvrir l'ensemble des sujets politiques. La géopolitique, la culture, la ruralité, le numérique sont autant de dimensions absentes ou sous-représentées.</li>
+            <li><strong>Les profils des candidats</strong> : ils sont établis de manière éditoriale et peuvent ne pas refléter les nuances de leurs positions. Les politiques évoluent, se contredisent, et leurs positions ne sont pas toujours cohérentes.</li>
+            <li><strong>La formulation des questions</strong> : la manière dont une question est posée influence la réponse. Nous avons tenté de formuler des questions neutres, mais aucune formulation n'est parfaitement objective.</li>
+            <li><strong>Le vote ne se résume pas à des idées</strong> : la personnalité d'un candidat, sa crédibilité, le contexte électoral, le vote utile... de nombreux facteurs entrent en jeu au-delà des convictions.</li>
+          </ul>
+          <p class="text-muted leading-relaxed">Malgré ces limites, les quiz politiques restent un excellent point de départ pour explorer ses convictions, questionner ses certitudes et engager le dialogue avec des personnes aux opinions différentes.</p>
+        </section>
+
+        <AdBanner slot="leaderboard" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Comment bien utiliser un quiz politique ?</h2>
+          <p class="text-muted leading-relaxed">Pour tirer le meilleur parti de Boussole2027, voici quelques conseils :</p>
+          <ul class="list-disc pl-6 text-muted space-y-2">
+            <li><strong>Répondez spontanément</strong> : ne cherchez pas la "bonne" réponse. Il n'y en a pas. Répondez selon votre instinct.</li>
+            <li><strong>Ne vous identifiez pas à un candidat</strong> : le quiz mesure une compatibilité, pas une adhésion. Être 80% compatible avec quelqu'un ne signifie pas que vous devez voter pour lui.</li>
+            <li><strong>Regardez tous les axes</strong> : le pourcentage global est un résumé. L'analyse détaillée par axe est bien plus riche et instructive.</li>
+            <li><strong>Partagez et comparez</strong> : le vrai intérêt du quiz, c'est de comparer vos résultats avec vos proches et d'en discuter.</li>
+            <li><strong>Utilisez-le comme point de départ</strong> : si vous découvrez que vous êtes proche d'un candidat que vous ne connaissiez pas, allez lire son programme !</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Prêt à vous situer ?</h2>
+          <p class="text-muted leading-relaxed">Que vous soyez un électeur chevronné ou un primo-votant, Boussole2027 vous offre un miroir de vos convictions. 45 questions, 7 minutes, et vous saurez quel candidat 2027 vous ressemble le plus — et surtout pourquoi.</p>
+          <div class="mt-6">
+            <a href="/quiz" class="inline-flex items-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-full hover:bg-primary-dark transition-colors">
+              Trouver mon candidat
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>

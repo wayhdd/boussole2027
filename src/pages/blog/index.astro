@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import AdBanner from '../../components/AdBanner.astro';
+
+const articles = [
+  {
+    slug: "comprendre-6-axes-politique-francaise",
+    title: "Comprendre les 6 axes du débat politique français",
+    excerpt: "Gauche, droite... et après ? Découvrez les 6 dimensions qui structurent réellement le paysage politique français en 2027.",
+    date: "28 avril 2026",
+    readTime: "8 min",
+  },
+  {
+    slug: "presidentielle-2027-candidats-positions",
+    title: "Présidentielle 2027 : où se situent les candidats ?",
+    excerpt: "De Mélenchon à Zemmour, analyse comparative des positions des 11 personnalités politiques susceptibles de se présenter en 2027.",
+    date: "25 avril 2026",
+    readTime: "10 min",
+  },
+  {
+    slug: "comment-se-reperer-echiquier-politique",
+    title: "Comment se repérer sur l'échiquier politique en 2027 ?",
+    excerpt: "Le clivage gauche-droite est-il dépassé ? Les nouveaux outils pour comprendre ses propres convictions politiques.",
+    date: "20 avril 2026",
+    readTime: "7 min",
+  },
+];
+---
+
+<Layout
+  title="Blog — Boussole2027 | Analyses politiques pour 2027"
+  description="Articles et analyses pour comprendre le paysage politique français en vue de la présidentielle 2027. Décryptage des positions des candidats et des grands enjeux."
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl mx-auto px-4 py-12 md:py-20 w-full">
+    <h1 class="text-3xl md:text-4xl font-extrabold mb-4">Blog</h1>
+    <p class="text-muted max-w-2xl mb-12">Analyses et décryptages pour comprendre le paysage politique français en vue de la présidentielle 2027.</p>
+
+    <AdBanner slot="leaderboard" />
+
+    <div class="space-y-6 mt-8">
+      {articles.map((article) => (
+        <a href={`/blog/${article.slug}`} class="block bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm hover:shadow-lg hover:border-slate-200 transition-all duration-300 group">
+          <div class="flex items-center gap-3 text-xs text-muted mb-3">
+            <span>{article.date}</span>
+            <span>-</span>
+            <span>{article.readTime} de lecture</span>
+          </div>
+          <h2 class="text-xl font-bold group-hover:text-primary transition-colors mb-2">{article.title}</h2>
+          <p class="text-muted text-sm leading-relaxed">{article.excerpt}</p>
+        </a>
+      ))}
+    </div>
+
+    <AdBanner slot="inline" class="mt-8" />
+  </main>
+
+  <Footer />
+</Layout>

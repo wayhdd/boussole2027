@@ -109,6 +109,94 @@ import { politicians } from '../data/politicians';
 
     <AdBanner slot="leaderboard" />
 
+    <!-- FAQ Section -->
+    <section class="max-w-5xl mx-auto px-4 py-16 md:py-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Questions fréquentes</h2>
+      <p class="text-muted text-center max-w-xl mx-auto mb-12">
+        Tout ce que vous devez savoir sur le quiz Boussole2027.
+      </p>
+      <div class="max-w-3xl mx-auto space-y-4">
+        <details class="group bg-white rounded-xl border border-slate-100 shadow-sm">
+          <summary class="flex justify-between items-center cursor-pointer p-5 font-semibold text-slate-900 hover:text-primary transition-colors">
+            Qu'est-ce que Boussole2027 ?
+            <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted text-sm leading-relaxed">
+            <p>Boussole2027 est un quiz politique gratuit et anonyme qui vous permet de découvrir votre profil politique à travers 45 questions. Vos réponses sont analysées sur 6 axes (économie, société, environnement, Europe, sécurité, immigration) puis comparées aux positions de 11 personnalités politiques françaises pour déterminer avec quel candidat potentiel à la présidentielle 2027 vous êtes le plus compatible.</p>
+          </div>
+        </details>
+        <details class="group bg-white rounded-xl border border-slate-100 shadow-sm">
+          <summary class="flex justify-between items-center cursor-pointer p-5 font-semibold text-slate-900 hover:text-primary transition-colors">
+            Comment sont calculés les résultats ?
+            <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted text-sm leading-relaxed">
+            <p>Chaque question est liée à un axe politique et à une direction. Vos réponses sur l'échelle de Likert (de "Pas du tout d'accord" à "Tout à fait d'accord") sont converties en scores normalisés de 0 à 100 pour chaque axe. Ensuite, la distance euclidienne entre votre profil et celui de chaque personnalité politique est calculée pour déterminer votre pourcentage de compatibilité. Plus les positions sont proches, plus la compatibilité est élevée. Consultez notre <a href="/methodologie" class="text-primary underline">page méthodologie</a> pour tous les détails.</p>
+          </div>
+        </details>
+        <details class="group bg-white rounded-xl border border-slate-100 shadow-sm">
+          <summary class="flex justify-between items-center cursor-pointer p-5 font-semibold text-slate-900 hover:text-primary transition-colors">
+            Mes données sont-elles collectées ?
+            <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted text-sm leading-relaxed">
+            <p>Non, absolument aucune donnée personnelle n'est collectée. Boussole2027 fonctionne entièrement dans votre navigateur : vos réponses ne sont jamais envoyées à un serveur. Il n'y a aucune base de données, aucun compte utilisateur, aucun tracking de vos réponses. Quand vous partagez vos résultats, seuls les 6 scores finaux (des nombres entre 0 et 100) sont encodés dans l'URL — impossible de reconstituer vos réponses individuelles à partir de ces scores.</p>
+          </div>
+        </details>
+        <details class="group bg-white rounded-xl border border-slate-100 shadow-sm">
+          <summary class="flex justify-between items-center cursor-pointer p-5 font-semibold text-slate-900 hover:text-primary transition-colors">
+            Quels candidats sont comparés dans le quiz ?
+            <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted text-sm leading-relaxed">
+            <p>Le quiz compare votre profil à 11 personnalités politiques françaises couvrant l'ensemble de l'échiquier politique : Jean-Luc Mélenchon (LFI), Fabien Roussel (PCF), Raphaël Glucksmann (PP-PS), Marine Tondelier (EELV), François Bayrou (MoDem), Édouard Philippe (Horizons), Laurent Wauquiez (LR), David Lisnard (NEF), Jordan Bardella (RN), Marine Le Pen (RN) et Éric Zemmour (Reconquête). Les profils sont établis sur la base de leurs déclarations publiques, programmes et votes.</p>
+          </div>
+        </details>
+        <details class="group bg-white rounded-xl border border-slate-100 shadow-sm">
+          <summary class="flex justify-between items-center cursor-pointer p-5 font-semibold text-slate-900 hover:text-primary transition-colors">
+            Le quiz est-il partisan ou orienté politiquement ?
+            <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted text-sm leading-relaxed">
+            <p>Non. Boussole2027 est un projet indépendant et non partisan. Les questions sont formulées de manière neutre et couvrent l'ensemble du spectre politique. Les profils des candidats sont établis de manière éditoriale à partir de sources publiques. Le quiz est un outil d'exploration de vos convictions, pas un outil de propagande. Nous ne recommandons aucun candidat ni aucun parti politique.</p>
+          </div>
+        </details>
+        <details class="group bg-white rounded-xl border border-slate-100 shadow-sm">
+          <summary class="flex justify-between items-center cursor-pointer p-5 font-semibold text-slate-900 hover:text-primary transition-colors">
+            Quelle est la différence avec PolitiScales ou d'autres tests politiques ?
+            <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted text-sm leading-relaxed">
+            <p>Contrairement à PolitiScales qui définit un profil théorique, Boussole2027 vous compare directement à des personnalités politiques françaises réelles dans le contexte de la présidentielle 2027. Vous ne découvrez pas seulement si vous êtes "libéral" ou "conservateur" — vous découvrez que vous êtes par exemple "78% compatible avec Glucksmann et 65% avec Bayrou". C'est concret, ancré dans l'actualité politique française, et facilement partageable avec vos proches.</p>
+          </div>
+        </details>
+        <details class="group bg-white rounded-xl border border-slate-100 shadow-sm">
+          <summary class="flex justify-between items-center cursor-pointer p-5 font-semibold text-slate-900 hover:text-primary transition-colors">
+            Combien de temps dure le quiz ?
+            <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted text-sm leading-relaxed">
+            <p>Le quiz comprend 45 questions et prend environ 7 minutes. Vous pouvez naviguer avec les boutons ou utiliser les touches du clavier (1 à 5) pour répondre plus rapidement. Il est possible de revenir en arrière pour modifier une réponse ou de passer une question si vous ne souhaitez pas vous prononcer.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- SEO text block -->
+    <section class="bg-white py-16 md:py-20">
+      <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-6">Comprendre le paysage politique français en vue de 2027</h2>
+        <div class="text-muted text-sm leading-relaxed space-y-4">
+          <p>L'élection présidentielle de 2027 s'annonce comme un scrutin majeur pour la France. Avec la fin du second mandat d'Emmanuel Macron, le paysage politique se recompose autour de nouvelles figures et de clivages renouvelés. De la gauche radicale de Jean-Luc Mélenchon à la droite identitaire d'Éric Zemmour, en passant par le centre libéral d'Édouard Philippe et l'écologie de Marine Tondelier, les Français auront un large choix de visions pour l'avenir du pays.</p>
+          <p>Les enjeux de 2027 dépassent le traditionnel clivage gauche-droite. La question écologique s'impose dans tous les programmes, l'Europe est au cœur des débats entre souverainistes et fédéralistes, et les questions de sécurité et d'immigration continuent de structurer le débat public. Sur le plan économique, le débat oppose partisans d'un État protecteur et défenseurs du libéralisme, tandis que les questions sociétales — laïcité, droits individuels, modèle familial — divisent transversalement les camps traditionnels.</p>
+          <p>Boussole2027 a été conçu pour aider chaque citoyen à se repérer dans cette complexité. En analysant vos positions sur 6 axes fondamentaux — économie, société, environnement, Europe, sécurité et immigration — notre quiz dresse un portrait nuancé de vos convictions et les compare aux profils de 11 personnalités politiques susceptibles de jouer un rôle dans l'élection de 2027.</p>
+          <p>Que vous soyez un électeur engagé cherchant à affiner votre choix, un jeune votant pour la première fois à une présidentielle, ou simplement curieux de savoir où vous vous situez sur l'échiquier politique français, Boussole2027 vous offre un outil gratuit, anonyme et transparent pour explorer vos convictions politiques.</p>
+        </div>
+      </div>
+    </section>
+
+    <AdBanner slot="inline" />
+
     <!-- CTA -->
     <section class="max-w-5xl mx-auto px-4 py-16 text-center">
       <div class="bg-gradient-to-r from-primary to-primary-light rounded-3xl p-10 md:p-16 text-white">

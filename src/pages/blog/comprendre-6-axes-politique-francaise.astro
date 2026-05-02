@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import AdBanner from '../../components/AdBanner.astro';
+---
+
+<Layout
+  title="Comprendre les 6 axes du débat politique français — Boussole2027"
+  description="Gauche, droite... et après ? Découvrez les 6 dimensions qui structurent réellement le paysage politique français : économie, société, environnement, Europe, sécurité et immigration."
+>
+  <Header />
+
+  <main class="flex-1 max-w-3xl mx-auto px-4 py-12 md:py-20 w-full">
+    <a href="/blog" class="text-sm text-primary hover:text-primary-dark transition-colors mb-6 inline-block">&larr; Retour au blog</a>
+
+    <article>
+      <div class="mb-8">
+        <div class="flex items-center gap-3 text-xs text-muted mb-3">
+          <span>28 avril 2026</span>
+          <span>-</span>
+          <span>8 min de lecture</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4">Comprendre les 6 axes du débat politique français</h1>
+        <p class="text-lg text-muted leading-relaxed">Réduire la politique à un simple axe gauche-droite, c'est comme juger un film uniquement sur sa durée. La réalité est bien plus nuancée. Voici les 6 dimensions qui permettent de comprendre réellement où vous vous situez.</p>
+      </div>
+
+      <AdBanner slot="leaderboard" />
+
+      <div class="prose prose-slate max-w-none space-y-8 mt-8">
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Pourquoi dépasser le clivage gauche-droite ?</h2>
+          <p class="text-muted leading-relaxed">Depuis la Révolution française, le clivage gauche-droite a structuré la vie politique. Mais en 2027, cette grille de lecture unique ne suffit plus. Comment classer un électeur favorable à la fois à la nationalisation de l'énergie et à une politique migratoire stricte ? Ou quelqu'un qui défend le libéralisme économique tout en soutenant le mariage pour tous ?</p>
+          <p class="text-muted leading-relaxed">Les politologues utilisent depuis longtemps des modèles multi-axiaux pour analyser les opinions politiques. Le plus connu, le Political Compass, utilise deux axes. Chez Boussole2027, nous en utilisons six, pour une analyse plus fine du paysage politique français contemporain.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Axe 1 : Économie — Interventionnisme vs Libéralisme</h2>
+          <p class="text-muted leading-relaxed">C'est l'axe le plus classique et souvent celui qui structure le plus les identités politiques. Il oppose deux visions du rôle de l'État dans l'économie.</p>
+          <p class="text-muted leading-relaxed">Du côté <strong>interventionniste</strong>, on trouve la défense des services publics, la nationalisation de secteurs stratégiques, l'augmentation du SMIC, la taxation des grandes fortunes et la redistribution des richesses. C'est la ligne historique de la gauche, portée aujourd'hui par Jean-Luc Mélenchon, Fabien Roussel ou Raphaël Glucksmann.</p>
+          <p class="text-muted leading-relaxed">Du côté <strong>libéral</strong>, on privilégie la baisse des charges, la flexibilité du marché du travail, la limitation de la dette publique et la confiance dans l'initiative privée. Édouard Philippe, David Lisnard ou Laurent Wauquiez incarnent cette sensibilité.</p>
+        </section>
+
+        <AdBanner slot="inline" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Axe 2 : Société — Conservatisme vs Progressisme</h2>
+          <p class="text-muted leading-relaxed">Cet axe mesure votre position sur les questions de société et de mœurs. Il transcende souvent le clivage économique traditionnel.</p>
+          <p class="text-muted leading-relaxed">Les <strong>conservateurs</strong> mettent en avant les valeurs traditionnelles, le modèle familial classique, le respect de l'autorité et une certaine prudence face aux évolutions sociétales. Les <strong>progressistes</strong> défendent l'extension des droits individuels, l'égalité des genres, la reconnaissance des minorités et l'ouverture aux nouvelles formes familiales.</p>
+          <p class="text-muted leading-relaxed">Ce qui rend cet axe intéressant, c'est qu'il ne recoupe pas toujours l'axe économique. Un électeur peut être économiquement interventionniste mais socialement conservateur (comme Fabien Roussel sur certains sujets) ou libéral en économie et progressiste sur les mœurs.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Axe 3 : Environnement — Productivisme vs Écologisme</h2>
+          <p class="text-muted leading-relaxed">L'environnement est devenu un axe structurant majeur de la politique française. Il oppose ceux qui considèrent que la croissance économique doit primer et ceux qui estiment que la transition écologique est urgente.</p>
+          <p class="text-muted leading-relaxed">Les <strong>productivistes</strong> jugent que les normes environnementales pénalisent l'économie, défendent le nucléaire comme solution principale et considèrent que la technologie résoudra les problèmes climatiques. Les <strong>écologistes</strong> militent pour la sobriété, l'interdiction de certaines pratiques polluantes, la taxe carbone et la transformation profonde de notre modèle de production et de consommation.</p>
+          <p class="text-muted leading-relaxed">Marine Tondelier (EELV) se situe à l'extrême écologiste, tandis qu'Éric Zemmour représente le pôle productiviste. La plupart des candidats se positionnent entre les deux, avec des nuances sur le nucléaire, la voiture électrique ou l'agriculture.</p>
+        </section>
+
+        <AdBanner slot="leaderboard" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Axe 4 : Europe — Souverainisme vs Fédéralisme</h2>
+          <p class="text-muted leading-relaxed">La question européenne divise profondément la classe politique française. Elle oppose les partisans d'une Europe plus intégrée aux défenseurs de la souveraineté nationale.</p>
+          <p class="text-muted leading-relaxed">Les <strong>souverainistes</strong> souhaitent que la France reprenne le contrôle de ses frontières, de sa politique économique et de sa législation. Certains vont jusqu'à remettre en question l'euro ou les traités européens. Les <strong>fédéralistes</strong> rêvent d'une Europe plus unie, avec un budget commun, une armée européenne et des décisions prises à la majorité qualifiée plutôt qu'à l'unanimité.</p>
+          <p class="text-muted leading-relaxed">Raphaël Glucksmann incarne la position la plus fédéraliste, tandis que Jordan Bardella et Éric Zemmour défendent une vision souverainiste assumée.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Axe 5 : Sécurité — Libertaire vs Autoritaire</h2>
+          <p class="text-muted leading-relaxed">Cet axe mesure votre position sur l'équilibre entre libertés individuelles et maintien de l'ordre. C'est un sujet brûlant en France, entre attentats terroristes, mouvements sociaux et débats sur les violences policières.</p>
+          <p class="text-muted leading-relaxed">Les <strong>libertaires</strong> estiment que les libertés ne doivent jamais être sacrifiées au nom de la sécurité, privilégient la prévention à la répression et s'inquiètent de la surveillance de masse. Les <strong>autoritaires</strong> veulent plus de moyens pour la police, des peines plus sévères, la vidéosurveillance généralisée et une justice plus ferme.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Axe 6 : Immigration — Ouverture vs Restriction</h2>
+          <p class="text-muted leading-relaxed">Sans doute le sujet le plus clivant de la politique française contemporaine. Il oppose ceux qui voient l'immigration comme une chance et ceux qui la perçoivent comme une menace pour l'identité et la cohésion nationale.</p>
+          <p class="text-muted leading-relaxed">Les partisans de l'<strong>ouverture</strong> défendent le droit d'asile, la régularisation des travailleurs sans-papiers, le droit du sol et une vision multiculturelle de la France. Les partisans de la <strong>restriction</strong> souhaitent réduire les flux migratoires, durcir les conditions d'accès à la nationalité, renforcer les frontières et conditionner l'immigration à la capacité d'intégration du pays.</p>
+        </section>
+
+        <AdBanner slot="inline" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Et vous, où vous situez-vous ?</h2>
+          <p class="text-muted leading-relaxed">Ces six axes permettent de dresser un portrait politique bien plus nuancé qu'un simple "je suis de gauche" ou "je suis de droite". C'est exactement ce que propose Boussole2027 : à travers 45 questions, nous analysons votre position sur chacun de ces axes et nous comparons votre profil à celui de 11 personnalités politiques françaises.</p>
+          <p class="text-muted leading-relaxed">Le résultat peut parfois surprendre : vous découvrirez peut-être que vos convictions économiques vous rapprochent d'un camp et vos positions sociétales d'un autre. C'est normal — la plupart des citoyens ne rentrent pas dans des cases prédéfinies.</p>
+          <div class="mt-6">
+            <a href="/quiz" class="inline-flex items-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-full hover:bg-primary-dark transition-colors">
+              Découvrir mon profil politique
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>

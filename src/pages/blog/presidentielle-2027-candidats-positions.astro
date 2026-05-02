@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import { politicians } from '../../data/politicians';
+import { axes } from '../../data/questions';
+---
+
+<Layout
+  title="Présidentielle 2027 : où se situent les candidats ? — Boussole2027"
+  description="Analyse comparative des positions des 11 personnalités politiques susceptibles de se présenter à la présidentielle 2027 sur 6 axes : économie, société, environnement, Europe, sécurité, immigration."
+>
+  <Header />
+
+  <main class="flex-1 max-w-3xl mx-auto px-4 py-12 md:py-20 w-full">
+    <a href="/blog" class="text-sm text-primary hover:text-primary-dark transition-colors mb-6 inline-block">&larr; Retour au blog</a>
+
+    <article>
+      <div class="mb-8">
+        <div class="flex items-center gap-3 text-xs text-muted mb-3">
+          <span>25 avril 2026</span>
+          <span>-</span>
+          <span>10 min de lecture</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4">Présidentielle 2027 : où se situent les candidats ?</h1>
+        <p class="text-lg text-muted leading-relaxed">De Jean-Luc Mélenchon à Éric Zemmour, en passant par Édouard Philippe et Jordan Bardella, les personnalités qui pourraient briguer l'Élysée en 2027 couvrent un spectre politique très large. Décryptage de leurs positions.</p>
+      </div>
+
+      <AdBanner slot="leaderboard" />
+
+      <div class="prose prose-slate max-w-none space-y-8 mt-8">
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Un paysage politique recomposé</h2>
+          <p class="text-muted leading-relaxed">La fin du second mandat d'Emmanuel Macron marque un tournant dans la vie politique française. Le centre macroniste se cherche un successeur, la gauche tente de s'unir autour de nouvelles figures, la droite républicaine se repositionne et l'extrême droite confirme sa place au cœur du jeu politique. Tour d'horizon des forces en présence.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">La gauche : de la rupture à la social-démocratie</h2>
+          <p class="text-muted leading-relaxed"><strong>Jean-Luc Mélenchon (LFI)</strong> incarne l'aile la plus radicale de la gauche. Fortement interventionniste en économie, progressiste sur les questions de société, écologiste convaincu et souverainiste de gauche sur l'Europe, il défend une vision de rupture avec le modèle libéral. Son profil se distingue par des positions très marquées sur presque tous les axes.</p>
+          <p class="text-muted leading-relaxed"><strong>Fabien Roussel (PCF)</strong> propose une gauche plus populaire et républicaine. Aussi interventionniste que Mélenchon en économie, il se distingue par des positions plus modérées sur les questions sociétales et un patriotisme assumé qui le rapproche parfois de la droite sur les questions de sécurité et de laïcité.</p>
+          <p class="text-muted leading-relaxed"><strong>Raphaël Glucksmann (PP-PS)</strong> représente la social-démocratie pro-européenne. Modérément interventionniste, fortement progressiste et le plus fédéraliste de tous les candidats, il se singularise par son engagement européen et sa ligne géopolitique ferme.</p>
+          <p class="text-muted leading-relaxed"><strong>Marine Tondelier (EELV)</strong> porte la voix de l'écologie politique. Son profil se distingue par le score écologiste le plus élevé de tous les candidats, combiné à un progressisme fort et une vision ouverte sur l'immigration. Elle est aussi très libertaire sur les questions de sécurité.</p>
+        </section>
+
+        <AdBanner slot="inline" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Le centre et la droite de gouvernement</h2>
+          <p class="text-muted leading-relaxed"><strong>François Bayrou (MoDem)</strong>, actuel Premier ministre, se positionne comme l'homme du compromis. Son profil est remarquablement centré sur presque tous les axes, avec une légère inclinaison libérale en économie et une sensibilité européenne affirmée. C'est le candidat le plus "modéré" de notre panel.</p>
+          <p class="text-muted leading-relaxed"><strong>Édouard Philippe (Horizons)</strong> incarne une droite libérale et pragmatique. Plus nettement libéral que Bayrou en économie, pro-européen et modérément sécuritaire, il occupe un espace entre le centre macroniste et la droite républicaine.</p>
+          <p class="text-muted leading-relaxed"><strong>Laurent Wauquiez (LR)</strong> a recentré Les Républicains sur une ligne de droite assumée. Libéral en économie, conservateur sur les questions de société, sécuritaire et favorable à une politique migratoire restrictive, il cherche à occuper l'espace entre le centre-droit et le RN.</p>
+          <p class="text-muted leading-relaxed"><strong>David Lisnard (NEF)</strong> porte une vision libérale décomplexée. Maire de Cannes, il est le candidat le plus libéral économiquement de notre panel, favorable à une réduction significative du périmètre de l'État, tout en restant modéré sur les questions européennes.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">La droite nationale et identitaire</h2>
+          <p class="text-muted leading-relaxed"><strong>Jordan Bardella (RN)</strong> est devenu la figure de proue du Rassemblement National. Son profil combine un interventionnisme économique modéré (le RN défend les services publics et les acquis sociaux), un conservatisme sociétal marqué, un souverainisme européen fort et des positions très restrictives sur l'immigration et très sécuritaires.</p>
+          <p class="text-muted leading-relaxed"><strong>Marine Le Pen (RN)</strong> partage largement les positions de Bardella, avec quelques nuances liées à son parcours plus long. Elle reste la figure historique du mouvement et son profil est très proche de celui de son successeur à la tête du parti.</p>
+          <p class="text-muted leading-relaxed"><strong>Éric Zemmour (Reconquête)</strong> se distingue par les positions les plus extrêmes de notre panel sur plusieurs axes. Fortement sécuritaire, très restrictif sur l'immigration, radicalement souverainiste et ultra-conservateur sur les questions de société, il se démarque du RN par un libéralisme économique plus affirmé.</p>
+        </section>
+
+        <AdBanner slot="leaderboard" />
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Les clivages qui structurent 2027</h2>
+          <p class="text-muted leading-relaxed">Plusieurs lignes de fracture se dessinent pour 2027 :</p>
+          <ul class="list-disc pl-6 text-muted space-y-2">
+            <li><strong>Économie</strong> : l'opposition entre interventionnisme (Mélenchon, Roussel, Bardella) et libéralisme (Lisnard, Philippe, Wauquiez) reste structurante.</li>
+            <li><strong>Europe</strong> : le fossé entre fédéralistes (Glucksmann, Philippe) et souverainistes (Bardella, Zemmour, Le Pen) ne cesse de se creuser.</li>
+            <li><strong>Immigration-sécurité</strong> : c'est le clivage le plus net, avec d'un côté la gauche (Mélenchon, Tondelier) et de l'autre la droite nationale (Zemmour, Bardella).</li>
+            <li><strong>Environnement</strong> : la transition écologique oppose les partisans de la sobriété (Tondelier, Mélenchon) aux sceptiques (Zemmour, Bardella).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold mb-4">Trouvez votre candidat</h2>
+          <p class="text-muted leading-relaxed">Maintenant que vous connaissez les positions de chaque candidat, il est temps de découvrir lequel vous ressemble le plus. Notre quiz de 45 questions analyse votre profil sur les 6 axes et calcule votre compatibilité avec chacune de ces 11 personnalités politiques.</p>
+          <div class="mt-6">
+            <a href="/quiz" class="inline-flex items-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-full hover:bg-primary-dark transition-colors">
+              Faire le quiz
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>
